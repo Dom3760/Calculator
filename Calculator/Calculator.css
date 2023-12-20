@@ -1,0 +1,41 @@
+body
+{
+    margin: 0;
+    padding: 0;
+}
+
+#calculatorContainer
+{
+    border: 1px solid black;
+    padding: 10px;
+    width: 200px;
+    margin: 20% auto;
+}
+
+#divide,#multiply,#minus,#add,#clear
+{
+    background-color: orange;
+}
+
+div button
+{
+    width: 40px;
+    height: 40px; 
+    margin: 3px;
+}
+
+#clear 
+{
+    width: 95%;
+}
+
+#display
+{
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px auto;
+    width: 90%;
+    height: 30px;
+    text-align: right;
+}
+/* *{border: 1px solid black;} */
