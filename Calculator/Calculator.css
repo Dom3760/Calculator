@@ -15,6 +15,7 @@ body
 #divide,#multiply,#minus,#add,#clear
 {
     background-color: orange;
+    /* background-color: rgb(255, 195, 122); */
 }
 
 div button
