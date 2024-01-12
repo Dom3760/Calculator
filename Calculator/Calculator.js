@@ -2,29 +2,34 @@
 //make variables for all buttons?
 //to enter ten's possibly multiply num enterd by ten then add second num pressed.
 
+//declaring all of the variables to make buttons work properly
+
 const buttons = document.querySelectorAll('.buttons');
 const display = document.getElementById("display")
-// console.log(buttonsArray)
+
 var currentNum = 0
 var newNum = 0
 display.textContent = 0
-var decimal = false
-var operater = false
 
+//used booleans to make sure buttons; oporators work.
+var decimal = false
+var operator = false
 var add = false
 var subtract = false
 var multiply = false
 var divide = false
 var equal = false
 
+//this function checks if the buttons were pushed and if so, it will launch this
 function clicked()
 {
-    if (operater === false)
+    //if number is entered before operator is picked then this will change value.
+    if (operator === false)
     {
         const buttonValue = event.target.textContent;
+        // if the button pushed is a number or is a decimal point then it will launch this
         if (!isNaN(buttonValue) || buttonValue === ".")
         {
-            // console.log ("button clicked:", buttonValue)
             if(!isNaN(buttonValue))
             {
                 if(decimal === false)
@@ -46,12 +51,13 @@ function clicked()
                 currentNum = parseFloat(buttonValue)
                 display.textContent = currentNum;
             }
+            //otherwise it will launch this.
         }else
         {
-            // console.log("button clicked:", buttonValue)
+            // if it is any of the operations then it will change the oporator to the one clicked.
             if(buttonValue === "/")
             {
-                divide()
+                dividef()
                 divide = true
 
                 multiply = false
@@ -60,7 +66,7 @@ function clicked()
             }
             else if(buttonValue === "*")
             {
-                multiply()
+                multiplyf()
                 multiply = true
 
                 divide = false
@@ -69,7 +75,7 @@ function clicked()
             }
             else if(buttonValue === "-")
             {
-                subtract()
+                subtractf()
                 subtract = true
 
                 divide = false
@@ -78,7 +84,7 @@ function clicked()
             }
             else if(buttonValue === "+")
             {
-                add()
+                addf()
                 add = true
 
                 divide = false
@@ -94,11 +100,12 @@ function clicked()
                 newNum = 0 
                 currentNum = 0
                 decimal = false
-                operater = false
+                operator = false
                 display.textContent = currentNum
             }
         }
     }
+    //if the oporator is active then it will add the buttons pressed to the second number.
     else
     {
         const buttonValue = event.target.textContent;
@@ -128,95 +135,157 @@ function clicked()
             }
         }else
         {
-            // console.log("button clicked:", buttonValue)
             if(buttonValue === "/")
             {
+                dividef()
                 divide = true
+
+                multiply = false
+                subtract = false
+                add = false
             }
             else if(buttonValue === "*")
             {
+                multiplyf()
                 multiply = true
+
+                divide = false
+                subtract = false
+                add = false
             }
             else if(buttonValue === "-")
             {
+                subtractf()
                 subtract = true
+
+                divide = false
+                multiply = false
+                add = false
             }
             else if(buttonValue === "+")
             {
+                addf()
                 add = true
+
+                divide = false
+                multiply = false
+                subtract = false
             }
             else if(buttonValue === "=")
             {
                 equal = true
-                answer()
+                answerf()
+                newNum = 0
+                buttons[3,7,11,15].style.backgroundColor = "orange";
             }
             else
             {
                 newNum = 0 
                 currentNum = 0
                 decimal = false
-                operater = false
+                operator = false
                 display.textContent = newNum
          
             }   
         }
     }
 }
-
-function divide()
+// divide function that will change oporator to true and change the background color and change the display.
+function dividef()
 {
     display.innerText = newNum
     buttons[3].style.backgroundColor = "rgb(255, 195, 122)";
-    operater = true
+    operator = true
 
     buttons[7,11,15].style.backgroundColor = "orange";
 }
-function multiply()
+function multiplyf()
 {
     display.innerText = newNum
     buttons[7].style.backgroundColor = "rgb(255, 195, 122)";
-    operater = true
+    operator = true
 
     buttons[3,11,15].style.backgroundColor = "orange";
 }
-function subtract()
+function subtractf()
 {
     display.innerText = newNum
     buttons[11].style.backgroundColor = "rgb(255, 195, 122)";
-    operater = true
+    operator = true
 
     buttons[3,7,15].style.backgroundColor = "orange";
 }
-function add()
+function addf()
 {
     display.innerText = newNum
     buttons[15].style.backgroundColor = "rgb(255, 195, 122)";
-    operater = true
+    operator = true
 
     buttons[3,7,11].style.backgroundColor = "orange";
 }
 
-function answer ()
+//if the answer button is presses while oporator is active it will do the calculation
+function answerf ()
 {
     if (add && equal === true)
     {
         currentNum = parseFloat(currentNum)+ parseFloat(newNum)
         display.innerText = currentNum
+
+        divide = false
+        multiply = false
+        subtract = false
+        add = false
+
+        buttons[3,7,11,15].style.backgroundColor = "orange";
     }
     if (subtract && equal === true)
     {
         currentNum = parseFloat(currentNum)- parseFloat(newNum)
-        display.innerText = currentNum   
+        display.innerText = currentNum  
+        
+        divide = false
+        multiply = false
+        subtract = false
+        add = false
+
+        buttons[3,7,11,15].style.backgroundColor = "orange";
     }
     if (multiply && equal === true)
     {
         currentNum = parseFloat(currentNum)* parseFloat(newNum)
         display.innerText = currentNum
+
+        divide = false
+        multiply = false
+        subtract = false
+        add = false
+
+        buttons[3,7,11,15].style.backgroundColor = "orange";
     }
     if (divide && equal === true)
     {
-        currentNum = parseFloat(currentNum)/ parseFloat(newNum)
-        display.innerText = currentNum
+        if (newNum === 0)
+        {
+            display.textContent = "Error"
+        }
+        else
+        {
+            currentNum = parseFloat(currentNum)/ parseFloat(newNum)
+            display.innerText = currentNum
+    
+            divide = false
+            multiply = false
+            subtract = false
+            add = false
+    
+            buttons[3,7,11,15].style.backgroundColor = "orange";
+        }
+    }
+    //if anything happens it will display error
+    else
+    {
+        display.textContent = "Error"
     }
 }
 
